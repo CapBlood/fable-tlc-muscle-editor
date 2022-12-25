@@ -1,6 +1,6 @@
 import re
 import os
-from typing import List
+from typing import List, TextIO
 
 # Original
 # mapper = {
@@ -108,21 +108,22 @@ def render_nums(nums: List[float]) -> str:
     rendered_nums = ", ".join(map(str, nums)) + ";"
     return rendered_nums
 
-def multiply_coef(nums: List[float]) -> List[float]:
+def multiply_coef_nums(nums: List[float], coefs: List[float]) -> List[float]:
     # return list(map(lambda x: x * COEF, nums))
-    return list(map(lambda x, coef: x * coef, nums, COEF))
+    # return list(map(lambda x, coef: x * coef, nums, COEF))
+    return list(map(lambda x, coef: x * coef, nums, coefs))
 
-def change_value(line):
-    return render_nums(multiply_coef(parse_nums(line)))
+def change_value(line: str, coefs: List[float]) -> str:
+    return render_nums(multiply_coef_nums(parse_nums(line), coefs))
 
 
-def replace(line):
+def replace(line: str, coefs: List[float]) -> str:
     for name, pattern in patterns.items():
         result = re.search(pattern, line)
         
         if result:
             base_name = result.group(1)
-            value = change_value(mapper[name])
+            value = change_value(mapper[name], coefs)
             
             return base_name + value  + "\n"
     
@@ -130,17 +131,15 @@ def replace(line):
     return line
 
 
-def process_file(file, offset_line, file_out):
+def process_file(file: TextIO, offset_line: int, coefs: List[float], filename_out: str) -> None:
     processed_text = ""
     for _ in range(offset_line):
         processed_text += next(file)
-        # processed_text += "\n"
 
     for line in file:
-        processed_text += replace(line)
-        # processed_text += "\n"
+        processed_text += replace(line, coefs)
 
-    with open(file_out, "w") as file:
+    with open(filename_out, "w") as file:
         file.write(processed_text)
 
 
