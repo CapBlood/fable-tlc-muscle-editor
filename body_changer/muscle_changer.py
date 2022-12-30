@@ -7,7 +7,7 @@ from body_changer.muscle_parser import MuscleParser
 from body_changer.muscle_utils import non_proportional_mul_bones
 
 
-class MuscleProcesser:
+class MuscleChanger:
     def __init__(self, root_path: str, lark_config_name: str, start_rule: str='main_group') -> None:
         self.__root_fs: FS = open_fs(root_path)
         self.__parser = MuscleParser(lark_config_name, start_rule)
