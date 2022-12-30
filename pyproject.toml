@@ -7,6 +7,9 @@ authors = ["CapBlood <stalker.anonim@mail.ru>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 fs = "^2.4.16"
+ply = "^3.11"
+lark = "^1.1.5"
+numpy = "^1.24.1"
 
 [tool.poetry.dev-dependencies]
 

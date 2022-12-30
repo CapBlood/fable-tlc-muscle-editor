@@ -1,0 +1,17 @@
+%import common.WS
+%import common.NEWLINE
+%import common.NUMBER
+%ignore WS
+
+number : NUMBER
+string : /"?\w[A-Za-z_0-9 ]+\w"?/
+tag : /#[A-Za-z_0-9 ]+/
+
+?value : number
+      | string
+
+?assign : value ":" value ("," value)* ";" 
+
+tag_group : tag [assign+] tag
+
+main_group : [(assign|tag_group)+]
