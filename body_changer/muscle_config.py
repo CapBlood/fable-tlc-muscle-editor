@@ -30,7 +30,7 @@ class BncfgConfig:
             if isinstance(value, OrderedDict):
                 if len(name) != 2:
                     raise Exception("Inner groups must have a tuple of str as keys")
-                
+
                 sub_group_name = self.KEYS_MAPPER.get(name, name)
                 processed_group[sub_group_name] = TaggedBncfgGroup(value, name)
             else:

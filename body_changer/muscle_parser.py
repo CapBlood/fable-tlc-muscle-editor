@@ -52,5 +52,8 @@ class MuscleParser:
 
     def parse(self, text: str) -> BncfgConfig:
         tree = self.__parser.parse(text)
+
         return MuscleTreeToConfig().transform(tree)
 
+
+muscle_parser = MuscleParser("muscle.lark", "main_group")
