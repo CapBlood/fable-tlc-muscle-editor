@@ -138,6 +138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         edited_config, is_save = Editor.edit_config(config)
         if is_save:
             self.manager.set_config(profile_name, edited_config)
+        self.update_profile_list()
 
     def export_profile(self) -> None:
         selected_indexes = self.listView.selectionModel().selectedIndexes()
