@@ -48,7 +48,7 @@ class BncfgConfig:
             if isinstance(value, BncfgConfig):
                 text += value.to_bncfg()
             else:
-                text += "{}: {};\n".format(
+                text += "{}: {};\r\n".format(
                     name, ", ".join(map(str, value)))
         
         return text
@@ -61,8 +61,8 @@ class TaggedBncfgGroup(BncfgConfig):
         self.end_tag = tags[1]
 
     def to_bncfg(self) -> str:
-        text: str = "{}\n".format(self.begin_tag)
+        text: str = "{}\r\n".format(self.begin_tag)
         text += super().to_bncfg()
-        text += "{}\n".format(self.end_tag)
+        text += "{}\r\n".format(self.end_tag)
 
         return text 
