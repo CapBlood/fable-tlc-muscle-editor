@@ -91,6 +91,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def activate_profile(self, index: QModelIndex) -> None:
         profile_name = index.data(Qt.DisplayRole)
         self.manager.activate_config(profile_name)
+        QMessageBox.information(self, "Activate profile", "Profile activated")
 
     def create_profile(self) -> None:
         if self.manager is None:
