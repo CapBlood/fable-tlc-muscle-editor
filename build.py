@@ -8,5 +8,7 @@ pyinstall_run([
     '--noconfirm',
     '--clean',
     '--add-data',
-    'body_changer/muscle.lark:.'
+    'body_changer/muscle.lark:.',
+    '-n',
+    'Body Changer'
 ])
