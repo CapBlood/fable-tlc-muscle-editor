@@ -41,15 +41,16 @@ class BncfgConfig:
     def items(self) -> Tuple:
         return tuple(self.group.items())
 
-    def to_bncfg(self) -> str:
+    def to_bncfg(self, end_line="\r\n") -> str:
         text: str = ""
 
         for name, value in self.group.items():
             if isinstance(value, BncfgConfig):
-                text += value.to_bncfg()
+                text += value.to_bncfg(end_line)
             else:
-                text += "{}: {};\r\n".format(
-                    name, ", ".join(map(str, value)))
+                text += "{}: {};{}".format(
+                    name, ", ".join(map(str, value)),
+                    end_line)
         
         return text
 
@@ -60,9 +61,9 @@ class TaggedBncfgGroup(BncfgConfig):
         self.begin_tag = tags[0]
         self.end_tag = tags[1]
 
-    def to_bncfg(self) -> str:
-        text: str = "{}\r\n".format(self.begin_tag)
-        text += super().to_bncfg()
-        text += "{}\r\n".format(self.end_tag)
+    def to_bncfg(self, end_line="\r\n") -> str:
+        text: str = "{}{}".format(self.begin_tag, end_line)
+        text += super().to_bncfg(end_line)
+        text += "{}{}".format(self.end_tag, end_line)
 
         return text 

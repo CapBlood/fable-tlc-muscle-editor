@@ -67,7 +67,7 @@ class BncfgManager:
         config = self.get_config(name_config)
 
         with open("{}/{}.bncfg".format(path, name_config), "w") as file:
-            file.write(config.to_bncfg())
+            file.write(config.to_bncfg(end_line="\n"))
 
 
 if __name__ == "__main__":
