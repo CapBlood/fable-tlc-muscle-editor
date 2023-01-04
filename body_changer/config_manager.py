@@ -27,9 +27,12 @@ class BncfgManager:
             self.import_bncfg("default", muscle_parser.parse(file.read()))
 
     def get_available_configs(self) -> List[str]:
+        list_configs_dir = self.__root_fs.listdir("data/bones/configs")
+        list_configs_dir.remove("default.bncfg")
+
         return list(map(
             lambda config_name: config_name[:config_name.rindex(".")], 
-            self.__root_fs.listdir("data/bones/configs")
+            list_configs_dir
         ))
 
     def get_config(self, name_config: str) -> BncfgConfig:
@@ -38,6 +41,15 @@ class BncfgManager:
             file_content = file.read()
 
         return muscle_parser.parse(file_content)
+
+    def set_config(self, name_config: str, config: BncfgConfig) -> None:
+        with self.__root_fs.open(
+            "data/bones/configs/{}.bncfg".format(name_config), "w") as file:
+            file.write(config.to_bncfg())
+
+    def delete_config(self, name_config: str) -> None:
+        self.__root_fs.remove(
+            "data/bones/configs/{}.bncfg".format(name_config))
 
     def activate_config(self, name_config: str) -> None:
         config = self.get_config(name_config)
