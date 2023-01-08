@@ -177,7 +177,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 def main() -> None:
     app = QApplication(sys.argv)
-    # app.setStyle('Fusion')
+    app.setStyle('Fusion')
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
